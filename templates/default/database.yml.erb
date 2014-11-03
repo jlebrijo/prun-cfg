@@ -1,0 +1,5 @@
+<%= node["rails_env"]%>:
+  adapter: postgresql
+  username: <%= node["db"]["user"]%>
+  password: <%= node["db"]["password"]%>
+  database: <%= node["db"]["name"]%>

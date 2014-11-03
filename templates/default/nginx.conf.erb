@@ -1,0 +1,4 @@
+server {
+  server_name <%=@domain%>;
+  rewrite ^/(.*) http://www.<%=@domain%>/$1 permanent;
+}
