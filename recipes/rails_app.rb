@@ -1,4 +1,4 @@
-package "libmagickwand-dev"
+%w(libmagickwand-dev libcurl4-openssl-dev).each {|p| package p}
 
 # Config files
 node["apps"].each_with_index do |app, i|
