@@ -11,7 +11,12 @@ node["apps"].each_with_index do |app, i|
   cookbook_file "application.yml" do
     path "/var/www/#{app}/shared/config/application.yml"
   end
-  execute "/usr/local/ruby/2.1.2/bin/thin config -C /etc/thin/#{app}.yml -c /var/www/#{app}/current -l log/thin.log -e #{node["rails_env"]} --servers 1 --port #{3000 + i}"
+  bash "Configuring thin for #{app}" do
+    code <<-EOH
+      source /etc/environment
+      thin config -C /etc/thin/#{app}.yml -c /var/www/#{app}/current -l log/thin.log -e #{node["rails_env"]} --servers 1 --port #{3000 + i}
+    EOH
+  end
 end
 
 # Images directories
