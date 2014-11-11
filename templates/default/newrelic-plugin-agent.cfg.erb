@@ -7,21 +7,20 @@ Application:
   #proxy: http://localhost:8080
 
   postgresql:
-    host: localhost
-    port: 5432
-    user: <%=node["db"]["user"]%>
-    dbname: <%=node["db"]["name"]%>
-    password: <%=node["db"]["password"]%>
-
+  <% node["apps"].each do |app| %>
+    - host: localhost
+      port: 5432
+      dbname: <%=app%>
+      user: <%=node["db"]["user"]%>
+      password: <%=node["db"]["password"]%>
+  <%end%>
   nginx:
-    - name: www.surprize.me
+  <% node["apps"].each do |app| %>
+    - name: <%=app%>.<%=node["domain_name"]%>
       host: localhost
       port: 80
       path: /status
-    - name: app.surprize.me
-      host: localhost
-      port: 80
-      path: /status
+  <%end%>
 
 Daemon:
   user: newrelic

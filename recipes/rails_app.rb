@@ -6,7 +6,7 @@ node["apps"].each_with_index do |app, i|
     recursive true
   end
   template "/var/www/#{app}/shared/config/database.yml" do
-    source "database.yml.erb"
+    variables db_name: app
   end
   cookbook_file "application.yml" do
     path "/var/www/#{app}/shared/config/application.yml"
