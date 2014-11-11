@@ -1,0 +1,27 @@
+#!/bin/sh
+# Starts and stops $APP
+# Adding a Service to Default runlevels
+#     update-rc.d $APP defaults
+#
+
+APP=<%=@app%>
+ENV=<%=node["rails_env"]%>
+
+case "$1" in
+start)
+  cd /var/www/$APP/current && RAILS_ENV=$ENV bundle exec thin start -C /etc/thin/$APP.yml
+;;
+
+stop)
+  cd /var/www/$APP/current && RAILS_ENV=$ENV bundle exec thin stop -C /etc/thin/$APP.yml
+;;
+
+restart)
+  $0 stop
+  $0 start
+;;
+
+*)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+esac
