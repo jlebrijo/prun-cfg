@@ -83,6 +83,3 @@ Attributes
 * Create a /etc/init.d/<app> service file per app to start|stop|restart thin
 * Adding node["pg_extensions"] to integrate extensions needed for the system
 
-### v0.0.5
-
-* Adding README.md 
