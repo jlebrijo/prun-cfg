@@ -9,6 +9,7 @@ bash "create pg_user" do
 end
 
 # Create databases
+package "postgresql-contrib"
 node["apps"].each do |app|
   bash "create #{app} database" do
     code <<-EOH
@@ -17,4 +18,17 @@ node["apps"].each do |app|
     EOH
     not_if "sudo -u postgres psql -c \"\\l\" | grep #{app}"
   end
+
+  node["pg_extensions"].each do |extension|
+    bash "create extension #{extension}" do
+      code <<-EOH
+        sudo -u postgres psql -d #{app} -c 'create extension #{extension};'
+      EOH
+      not_if "sudo -u postgres psql -d #{app} -c \"\\dx\" | grep #{extension}"
+    end
+  end
+end
+
+service 'postgresql' do
+  action :restart
 end
