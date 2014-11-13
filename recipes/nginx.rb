@@ -1,9 +1,20 @@
-template "/etc/nginx/conf.d/nginx.conf"
+# Reset nginx configuration
+directory "/etc/nginx/conf.d" do
+  recursive true
+  action :delete
+end
+directory "/etc/nginx/conf.d"
 
+# example.com --> www.example.com always
+template "/etc/nginx/conf.d/root_to_www.conf" do
+  source "nginx/root_to_www.conf.erb"
+end
+
+# Configuring Rails Apps as Virtual hosts
 node["apps"].each_with_index do |app, i|
 
-  template "/etc/nginx/conf.d/#{app}.conf" do
-    source "nginx-app.conf.erb"
+  template "/etc/nginx/conf.d/vhost_#{app}.conf" do
+    source "nginx/app.conf.erb"
     variables app: app, port: 3000 + i, domain: node["domain_name"]
   end
 
@@ -14,6 +25,6 @@ node["apps"].each_with_index do |app, i|
   end
 end
 
-service 'nginx' do
+service "nginx" do
   action :restart
 end
