@@ -33,7 +33,6 @@ server {
 
 <% if node["ssl_apps"].include? @app %>
   server {
-    listen                *:80;
     server_name <%= @app%>.<%= @domain%>;
     location / {
       rewrite ^ https://$server_name$request_uri? permanent;
