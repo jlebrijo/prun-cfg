@@ -2,12 +2,10 @@
 cookbook_file "id_rsa" do
   path "/root/.ssh/id_rsa"
   mode 0600
-  action :create_if_missing
 end
 cookbook_file "id_rsa.pub" do
   path "/root/.ssh/id_rsa.pub"
   mode 0644
-  action :create_if_missing
 end
 
 # Add known hosts

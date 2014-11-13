@@ -3,6 +3,6 @@ description "Helps to configure PRUN servers (PostgreSQL / Ruby on Rails/ Ubuntu
 license 'MIT'
 maintainer 'Juan Lebrijo'
 maintainer_email 'juan@lebrijo.com'
-version "0.0.7"
+version "0.0.8"
 supports 'ubuntu'
 depends 'ssh_known_hosts'
