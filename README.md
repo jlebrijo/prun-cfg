@@ -18,6 +18,8 @@ Attributes:
   * "user": db use
   * "password": db password
 * "pg_extensions": Postgresql extensions to be configured
+* "ops_name": Identifies automatic operations in server
+* "ops_email": Mail for operations in server
 
 ```json
   "default_attributes": {
@@ -29,7 +31,10 @@ Attributes:
       "user": "db_user",
       "password": "Rxxxxxx9"
     },
-    "pg_extensions": ["unaccent", "hstore"]
+    "pg_extensions": ["unaccent", "hstore"],
+    // Name email to identify backup commits for example
+    "ops_name": "Agilar Jenkins",
+    "ops_email": "jenkins-agilar@agilar.org"
   }
 ```
 
@@ -83,3 +88,6 @@ Attributes
 * Create a /etc/init.d/<app> service file per app to start|stop|restart thin
 * Adding node["pg_extensions"] to integrate extensions needed for the system
 
+### v0.0.9
+
+* Adding Oprations identification in server with two attributes: ops_name and ops_email
