@@ -90,4 +90,8 @@ Attributes
 
 ### v0.0.9
 
-* Adding Oprations identification in server with two attributes: ops_name and ops_email
+* Adding Operations identification in server with two attributes: ops_name and ops_email
+
+### v0.0.10
+
+* Fix error: do not process "ssl_apps" and "pg_extensions" they are not defined

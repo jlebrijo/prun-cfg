@@ -12,12 +12,13 @@ end
 execute "git config --global user.email '#{node["ops_email"]}'"
 execute "git config --global user.name '#{node["ops_name"]}'"
 
-# Add known hosts
-ssh_known_hosts_entry 'github.com'
-ssh_known_hosts_entry 'bitbucket.org'
-
 # Add Authorized keys
 cookbook_file "authorized_keys" do
   path "/root/.ssh/authorized_keys"
   mode 0644
 end
+
+# Add known hosts
+ssh_known_hosts_entry 'github.com'
+ssh_known_hosts_entry 'bitbucket.org'
+

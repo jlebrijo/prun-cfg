@@ -26,7 +26,7 @@ node["apps"].each do |app|
       EOH
       not_if "sudo -u postgres psql -d #{app} -c \"\\dx\" | grep #{extension}"
     end
-  end
+  end if node["pg_extensions"]
 end
 
 service 'postgresql' do
