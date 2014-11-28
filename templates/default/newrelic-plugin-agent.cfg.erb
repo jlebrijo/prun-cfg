@@ -13,14 +13,14 @@ Application:
       dbname: <%=app%>
       user: <%=node["db"]["user"]%>
       password: <%=node["db"]["password"]%>
-  <%end%>
+  <%end if node["apps"]%>
   nginx:
   <% node["apps"].each do |app| %>
     - name: <%=app%>.<%=node["domain_name"]%>
       host: localhost
       port: 80
       path: /status
-  <%end%>
+  <%end if node["apps"]%>
 
 Daemon:
   user: newrelic

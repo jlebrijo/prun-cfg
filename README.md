@@ -59,6 +59,28 @@ Attributes
   }
 ```
 
+### recipe[prun-cfg::jenkins]: Jenkins
+
+Configure a Jenkins server for Rails testing and deployment
+
+Attributes
+
+* "rubies": Rubies on RVM to run our applications
+* "rails_env": Normal is "test", so Jenkins will test against Database
+* "db": PostgreSQL Database configuration
+
+```json
+  "default_attributes": {
+    "rubies": ["ruby-2.1.2", "ruby-2.1.5"],
+    "rails_env": "test",
+    "db": {
+      "name": "test_ddbb",
+      "user": "user_db",
+      "password": "password_db"
+    }
+  }
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/prun-cfg/fork )
@@ -95,3 +117,8 @@ Attributes
 ### v0.0.10
 
 * Fix error: do not process "ssl_apps" and "pg_extensions" they are not defined
+
+### v0.0.13
+
+* Create Jenkins recipe
+
