@@ -1,10 +1,25 @@
-%w(libcurl4-openssl-dev).each {|p| package p}
+%w(libcurl4-openssl-dev libmagickwand-dev).each {|p| package p}
 
+## Jenkins ownership
+execute "chown -R jenkins:jenkins /var/lib/jenkins"
+execute "chown -R jenkins:jenkins /usr/local/rvm"
+
+# Add known hosts
+ssh_known_hosts_entry 'github.com'
+ssh_known_hosts_entry 'bitbucket.org'
+
+# Ruby
 node['rubies'].each do |ruby|
   execute "Install #{ruby}" do
     command "su jenkins -l -c 'rvm install #{ruby} --verify-downloads 1'"
     not_if "su jenkins -l -c 'rvm install list | grep #{ruby}'"
   end
+end
+
+## Configuration
+directory "/var/lib/jenkins/jobs/shared"
+cookbook_file "application.yml" do
+  path "/var/lib/jenkins/jobs/shared/application.yml"
 end
 
 ## Database
@@ -27,11 +42,6 @@ bash "create #{node["db"]["name"]} database" do
   not_if "sudo -u postgres psql -c \"\\l\" | grep #{node["db"]["name"]}"
 end
 
-## Configuration
-cookbook_file "application.yml" do
-  path "/var/lib/jenkins/jobs/shared/application.yml"
-end
-
 ## Nginx
 template "/etc/nginx/conf.d/jenkins.conf" do
   source "nginx/jenkins.conf.erb"
@@ -40,8 +50,6 @@ service "nginx" do
   action :restart
 end
 
-## Jenkins ownership
-execute "chown -R jenkins:nogroup /var/lib/jenkins"
 service "jenkins" do
   action :restart
 end
