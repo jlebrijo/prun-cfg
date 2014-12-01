@@ -68,6 +68,8 @@ Attributes
 * "rubies": Rubies on RVM to run our applications
 * "rails_env": Normal is "test", so Jenkins will test against Database
 * "db": PostgreSQL Database configuration
+* "ops_name": Git identification for server
+* "ops_email": Git email identification for server
 
 ```json
   "default_attributes": {
@@ -77,7 +79,9 @@ Attributes
       "name": "test_ddbb",
       "user": "user_db",
       "password": "password_db"
-    }
+    },
+    "ops_email": "ci@lebrijo.com",
+    "ops_name": "Jenkins at lebrio.com"
   }
 ```
 
@@ -121,4 +125,8 @@ Attributes
 ### v0.0.13
 
 * Create Jenkins recipe
+
+### v0.0.16
+
+* Adding "ops_email" and "ops_name" to Jenkins recipe because in some case it will make commits
 

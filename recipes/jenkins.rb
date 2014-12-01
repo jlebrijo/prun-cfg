@@ -8,6 +8,18 @@ execute "chown -R jenkins:jenkins /usr/local/rvm"
 ssh_known_hosts_entry 'github.com'
 ssh_known_hosts_entry 'bitbucket.org'
 
+# Identify Git pushers for backups or releases
+bash "git config --global" do
+  cwd "/var/lib/jenkins/"
+  user "jenkins"
+  environment ({'HOME' => '/var/lib/jenkins/', 'USER' => 'jenkins'})
+  code <<-EOH
+    git config --global user.email "#{node["ops_email"]}"
+    git config --global user.name "#{node["ops_name"]}"
+    git config --global push.default simple
+  EOH
+end
+
 # Ruby
 node['rubies'].each do |ruby|
   execute "Install #{ruby}" do
