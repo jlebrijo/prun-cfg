@@ -29,6 +29,11 @@ node["apps"].each_with_index do |app, i|
   end
   execute "update-rc.d #{app} defaults"
 
+  # Supervisor scripts
+  template "/etc/supervisor/conf.d/#{app}.conf" do
+    source "supervisord.conf.erb"
+    variables app: app
+  end
 end
 
 # Common code repo
