@@ -85,6 +85,38 @@ Attributes
   }
 ```
 
+### recipe[prun-cfg::wordpress]: Jenkins
+
+Configure Mysql//Php5-fpm/Nginx/Wordpress to allocate organization blog
+
+Attributes
+
+* "blog_dns_name": DNS name for the blog
+* "mysql": Mysql configuration
+  * "root_password": password for root user
+  * "db_name": database name
+  * "db_user": user name
+  * "db_password": pasword for user
+* "backup": backup configuration
+  * "repo": Repository to store the backups
+* "ops_name": Git identification for server
+* "ops_email": Git email identification for server
+
+```json
+  "default_attributes": {
+    "blog_dns_name": "blog.agilar.org",
+    "mysql": {
+      "root_password": "fexXFAp",
+      "db_name": "blog",
+      "db_user": "blog",
+      "db_password": "IH3Wv"
+    },
+    "backup": {
+      "repo": "git@github.com:company/backup.git"
+    }
+  }
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/prun-cfg/fork )
@@ -130,3 +162,7 @@ Attributes
 
 * Adding "ops_email" and "ops_name" to Jenkins recipe because in some case it will make commits
 
+### v0.1.0
+
+* Adding Wordpress recipe
+* Create Supervisor conf for newrelic daemons
