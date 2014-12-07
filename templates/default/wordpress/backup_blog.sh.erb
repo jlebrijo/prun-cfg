@@ -1,0 +1,16 @@
+#!/bin/sh
+
+REPO=<%=node[:backup][:repo]%>
+
+git clone $REPO /tmp/backup
+rm -r /tmp/backup/blog/blog
+cp /var/www/blog /tmp/backup/blog
+rm -r /tmp/backup/blog/db.sql
+mysqldump blog > /tmp/backup/blog/db.sql
+
+comment="Blog backup at $(date +'F %R')"
+tagname="blog-$(date +"%Y%m%d")"
+cd /tmp/backup
+git commit -m $comment
+git push origin master
+git tag -a $tagname -m '$comment' -f

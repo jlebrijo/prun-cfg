@@ -1,0 +1,8 @@
+#!/bin/sh
+
+REPO=<%=node[:backup][:repo]%>
+
+git clone $REPO /tmp/backup
+rm -r /var/www/blog
+cp -r /tmp/backup/blog/blog /var/www
+mysql blog < /tmp/backup/blog/db.sql
