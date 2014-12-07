@@ -43,3 +43,11 @@ template "/etc/newrelic/newrelic-plugin-agent.cfg"
 service 'newrelic-plugin-agent' do
   action :restart
 end
+
+# Create supervisord file
+%w(newrelic-plugin-agent newrelic-sysmond).each do |app|
+  template "/etc/supervisor/conf.d/#{app}.conf" do
+    source "supervisord.conf.erb"
+    variables app: app
+  end
+end
