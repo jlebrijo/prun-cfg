@@ -2,7 +2,13 @@
 
 REPO=<%=node[:backup][:repo]%>
 
-git clone $REPO /tmp/backup
+if [ -d "/tmp/backup" ]
+then
+  cd /tmp/backup && git pull
+else
+  git clone $REPO /tmp/backup
+fi
+
 rm -r /var/www/blog
 cp -r /tmp/backup/blog/blog /var/www
 mysql blog < /tmp/backup/blog/db.sql
