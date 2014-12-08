@@ -36,7 +36,7 @@ bash "Install Wordpress" do
     tar -zxvf latest.tar.gz
     mv wordpress /var/www/blog
   EOH
-  not_if "-d '/var/www/blog'"
+  not_if "ls /var/www  | grep blog"
 end
 
 template "/var/www/blog/wp-config.php" do
