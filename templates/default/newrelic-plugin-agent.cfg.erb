@@ -17,7 +17,7 @@ Application:
   nginx:
   <% node["apps"].each do |app| %>
     - name: <%=app%>.<%=node["domain_name"]%>
-      host: localhost
+      host: <%=app%>.<%=node["domain_name"]%>
       port: 80
       path: /status
   <%end if node["apps"]%>
