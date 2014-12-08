@@ -14,8 +14,8 @@ bash "git config --global" do
   user "jenkins"
   environment ({'HOME' => '/var/lib/jenkins/', 'USER' => 'jenkins'})
   code <<-EOH
-    git config --global user.email "#{node["ops_email"]}"
-    git config --global user.name "#{node["ops_name"]}"
+    git config --global user.email "#{node["git_config"]["email"]}"
+    git config --global user.name "#{node["git_config"]["name"]}"
     git config --global push.default simple
   EOH
 end

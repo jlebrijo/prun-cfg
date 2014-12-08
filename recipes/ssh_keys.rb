@@ -9,8 +9,9 @@ cookbook_file "id_rsa.pub" do
 end
 
 # Identify Git pushers for backups or releases
-execute "git config --global user.email '#{node["ops_email"]}'"
-execute "git config --global user.name '#{node["ops_name"]}'"
+execute "git config --global user.email '#{node["git_config"]["email"]}'"
+execute "git config --global user.name '#{node["git_config"]["name"]}'"
+execute "git config --global push.default simple"
 
 # Add Authorized keys
 cookbook_file "authorized_keys" do
