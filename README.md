@@ -18,8 +18,9 @@ Attributes:
   * "user": db use
   * "password": db password
 * "pg_extensions": Postgresql extensions to be configured
-* "ops_name": Identifies automatic operations in server
-* "ops_email": Mail for operations in server
+* "git_config":
+  * "name": Git identification for server
+  * "email": Git email identification for server
 
 ```json
   "default_attributes": {
@@ -33,8 +34,10 @@ Attributes:
     },
     "pg_extensions": ["unaccent", "hstore"],
     // Name email to identify backup commits for example
-    "ops_name": "Agilar Jenkins",
-    "ops_email": "jenkins-agilar@agilar.org"
+    "git_config": {
+      "name": "Jenkins",
+      "email": "jenkins@comapny.org"
+    }
   }
 ```
 
@@ -68,8 +71,9 @@ Attributes
 * "rubies": Rubies on RVM to run our applications
 * "rails_env": Normal is "test", so Jenkins will test against Database
 * "db": PostgreSQL Database configuration
-* "ops_name": Git identification for server
-* "ops_email": Git email identification for server
+* "git_config":
+  * "name": Git identification for server
+  * "email": Git email identification for server
 
 ```json
   "default_attributes": {
@@ -80,8 +84,11 @@ Attributes
       "user": "user_db",
       "password": "password_db"
     },
-    "ops_email": "ci@lebrijo.com",
-    "ops_name": "Jenkins at lebrio.com"
+    // Name email to identify backup commits for example
+    "git_config": {
+      "name": "Jenkins",
+      "email": "jenkins@comapny.org"
+    }
   }
 ```
 
@@ -99,8 +106,9 @@ Attributes
   * "db_password": pasword for user
 * "backup": backup configuration
   * "repo": Repository to store the backups
-* "ops_name": Git identification for server
-* "ops_email": Git email identification for server
+* "git_config":
+  * "name": Git identification for server
+  * "email": Git email identification for server
 
 ```json
   "default_attributes": {
@@ -113,6 +121,11 @@ Attributes
     },
     "backup": {
       "repo": "git@github.com:company/backup.git"
+    }
+    // Name email to identify backup commits for example
+    "git_config": {
+      "name": "Jenkins",
+      "email": "jenkins@comapny.org"
     }
   }
 ```
@@ -166,3 +179,10 @@ Attributes
 
 * Adding Wordpress recipe
 * Create Supervisor conf for newrelic daemons
+
+### v0.1.1
+
+* If you use 'opoen-dock' you need to add   'hostname:' to container to fix the name and recognise in newrelic.
+* Fixed Newrelic Nginx stats
+* Some fixes for Blog for several environments
+* Change 'ops_name' and 'ops_email' to 'git_config:{name,email}'
