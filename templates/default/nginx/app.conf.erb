@@ -17,6 +17,7 @@ server {
 
   location @<%= @app%> {
     proxy_pass          http://<%= @app%>;
+    proxy_set_header Host $host;
     proxy_read_timeout  90;
   }
   location / {
