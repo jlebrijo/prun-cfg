@@ -13,5 +13,7 @@ rm -r /var/www/blog
 cp -r /tmp/backup/blog/blog /var/www
 mysql blog < /tmp/backup/blog/db.sql
 
+echo "<?php" >> /var/www/blog/wp-config.php
 echo "define('WP_HOME','<%= node[:blog_dns_name]%>');" >> /var/www/blog/wp-config.php
 echo "define('WP_SITEURL','<%= node[:blog_dns_name]%>');" >> /var/www/blog/wp-config.php
+echo "?>" >> /var/www/blog/wp-config.php
