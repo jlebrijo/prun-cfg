@@ -15,6 +15,11 @@ node["apps"].each_with_index do |app, i|
     path "/var/www/#{app}/shared/config/application.yml"
   end
 
+  template "/var/www/#{app}/shared/config/newrelic.yml" do
+    source "rails_server/newrelic.yml.erb"
+    variables app: app
+  end if node["newrelic_key"]
+
   bash "Configuring thin for #{app}" do
     code <<-EOH
       source /etc/environment
