@@ -38,7 +38,9 @@ bash "install MeetMe/newrelic-plugin-agent" do
   not_if "which newrelic-plugin-agent"
 end
 
-template "/etc/newrelic/newrelic-plugin-agent.cfg"
+template "/etc/newrelic/newrelic-plugin-agent.cfg" do
+  source "newrelic/newrelic-plugin-agent.cfg.erb"
+end
 
 service 'newrelic-plugin-agent' do
   action :restart

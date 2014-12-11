@@ -7,6 +7,7 @@ node["apps"].each_with_index do |app, i|
   end
 
   template "/var/www/#{app}/shared/config/database.yml" do
+    source "rails_server/database.yml.erb"
     variables db_name: app
   end
 
@@ -23,7 +24,7 @@ node["apps"].each_with_index do |app, i|
 
   # Creating init scripts
   template "/etc/init.d/#{app}" do
-    source "init-script.sh.erb"
+    source "rails_server/init-script.sh.erb"
     variables app: app
     mode "0755"
   end
