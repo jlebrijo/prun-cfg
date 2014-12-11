@@ -35,6 +35,7 @@ bash "Install Wordpress" do
     wget https://wordpress.org/latest.tar.gz
     tar -zxvf latest.tar.gz
     mv wordpress /var/www/blog
+    chown www-data:www-data -R /var/www/blog/
   EOH
   not_if "ls /var/www  | grep blog"
 end
