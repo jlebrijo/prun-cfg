@@ -41,6 +41,7 @@ end
 
 template "/var/www/blog/wp-config.php" do
   source "wordpress/wp-config.php.erb"
+  not_if "ls /var/www  | grep blog"
 end
 
 # Configure NGINX
