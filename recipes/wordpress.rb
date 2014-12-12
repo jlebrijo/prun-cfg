@@ -6,7 +6,7 @@ bash "Install Mysql Server" do
     apt-get -y install mysql-server
     service mysql start
   EOH
-#  not_if "dpkg-query -W 'mysql-server'"
+  not_if "dpkg-query -W 'mysql-server'"
 end
 
 bash "Create Database and user" do
