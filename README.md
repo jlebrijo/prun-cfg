@@ -186,3 +186,10 @@ Attributes
 * Fixed Newrelic Nginx stats
 * Some fixes for Blog for several environments
 * Change 'ops_name' and 'ops_email' to 'git_config:{name,email}'
+
+### v0.1.3
+
+* Including node["packages"] for Rails server, to install Ubuntu packages
+* NewRelic (config/newrelic.yml) is managed for rails apps. So you need to:
+    * set :linked_files, %w{... config/newrelic.yml}
+    * Remove file from repo and add to .git ignore
