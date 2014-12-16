@@ -36,6 +36,7 @@ end
 
 ## Database
 template "/var/lib/jenkins/jobs/shared/database.yml" do
+  source "rails_server/database.yml.erb"
   variables db_name: node["db"]["name"]
 end
 
