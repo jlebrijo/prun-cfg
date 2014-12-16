@@ -47,19 +47,25 @@ service 'newrelic-plugin-agent' do
 end
 
 # NewRelic for blog
-package "php5-dev"
-bash "Install newrelic-php5" do
-  code <<-EOH
-    echo newrelic-php5 newrelic-php5/application-name string "#{node[:mysql][:db_name]}-#{node[:rails_env]}" | debconf-set-selections
-    echo newrelic-php5 newrelic-php5/license-key string "#{node["newrelic_key"]}" | debconf-set-selections
-    apt-get -y install newrelic-php5
-    cp /etc/newrelic/newrelic.cfg.template /etc/newrelic/newrelic.cfg
-    service newrelic-daemon restart
-    service php5-fpm restart
-    service nginx restart
-  EOH
-  not_if "dpkg-query -W 'newrelic-php5'"
-end if node[:blog_dns_name]
+if node[:blog_dns_name]
+  package "php5-dev"
+  bash "Install newrelic-php5" do
+    code <<-EOH
+      echo newrelic-php5 newrelic-php5/application-name string "#{node[:mysql][:db_name]}-#{node[:rails_env]}" | debconf-set-selections
+      echo newrelic-php5 newrelic-php5/license-key string "#{node["newrelic_key"]}" | debconf-set-selections
+      apt-get -y install newrelic-php5
+      cp /etc/newrelic/newrelic.cfg.template /etc/newrelic/newrelic.cfg
+      service newrelic-daemon restart
+      service php5-fpm restart
+      service nginx restart
+    EOH
+    not_if "dpkg-query -W 'newrelic-php5'"
+  end
+  template "/etc/supervisor/conf.d/newrelic-daemon.conf" do
+    source "supervisord.conf.erb"
+    variables app: "newrelic-daemon"
+  end
+end
 
 # Create supervisord file
 %w(newrelic-plugin-agent newrelic-sysmond).each do |app|

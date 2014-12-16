@@ -33,6 +33,7 @@ Attributes:
       "password": "Rxxxxxx9"
     },
     "pg_extensions": ["unaccent", "hstore"],
+    "packages": ["imagemagick", "libmagickwand-dev", "libcurl4-openssl-dev"]
     // Name email to identify backup commits for example
     "git_config": {
       "name": "Jenkins",
@@ -192,4 +193,4 @@ Attributes
 * Including node["packages"] for Rails server, to install Ubuntu packages
 * NewRelic (config/newrelic.yml) is managed for rails apps. So you need to:
     * set :linked_files, %w{... config/newrelic.yml}
-    * Remove file from repo and add to .git ignore
+    * Remove file from repo and add to .gitignore
