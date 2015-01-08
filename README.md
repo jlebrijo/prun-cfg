@@ -75,6 +75,7 @@ Attributes
 * "git_config":
   * "name": Git identification for server
   * "email": Git email identification for server
+* "packages": list of needed packages
 
 ```json
   "default_attributes": {
@@ -89,11 +90,12 @@ Attributes
     "git_config": {
       "name": "Jenkins",
       "email": "jenkins@comapny.org"
-    }
+    },
+    "packages": ["libcurl4-openssl-dev", "libmagickwand-dev", "build-essential"]
   }
 ```
 
-### recipe[prun-cfg::wordpress]: Jenkins
+### recipe[prun-cfg::wordpress]: Wordpress blog
 
 Configure Mysql//Php5-fpm/Nginx/Wordpress to allocate organization blog
 
@@ -125,8 +127,8 @@ Attributes
     }
     // Name email to identify backup commits for example
     "git_config": {
-      "name": "Jenkins",
-      "email": "jenkins@comapny.org"
+      "name": "Blog",
+      "email": "blog@comapny.org"
     }
   }
 ```
@@ -194,3 +196,7 @@ Attributes
 * NewRelic (config/newrelic.yml) is managed for rails apps. So you need to:
     * set :linked_files, %w{... config/newrelic.yml}
     * Remove file from repo and add to .gitignore
+
+### v0.1.7
+
+* Including node["packages"] for Jenkins server, to install Ubuntu packages

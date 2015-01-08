@@ -1,4 +1,5 @@
-%w(libcurl4-openssl-dev libmagickwand-dev).each {|p| package p}
+execute "apt-get update"
+node["packages"].each {|p| package p} if node["packages"]
 
 ## Jenkins ownership
 execute "chown -R jenkins:jenkins /var/lib/jenkins"
