@@ -23,7 +23,7 @@ node["apps"].each_with_index do |app, i|
   bash "Configuring thin for #{app}" do
     code <<-EOH
       source /etc/environment
-      thin config -C /etc/thin/#{app}.yml -c /var/www/#{app}/current -l log/thin.log -e #{node["rails_env"]} --servers 1 --port #{3000 + i}
+      thin config -C /etc/thin/#{app}.yml -c /var/www/#{app}/current -l log/thin.log -e #{node["environment"]} --servers 1 --port #{3000 + i}
     EOH
   end
 
