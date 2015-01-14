@@ -49,9 +49,10 @@ end
 # NewRelic for blog
 if node[:blog_dns_name]
   package "php5-dev"
+  app_name = "#{node[:mysql][:db_name]}#{"-#{node[:environment]}" unless node[:environment] == "_default"}"
   bash "Install newrelic-php5" do
     code <<-EOH
-      echo newrelic-php5 newrelic-php5/application-name string "#{node[:mysql][:db_name]}-#{node[:rails_env]}" | debconf-set-selections
+      echo newrelic-php5 newrelic-php5/application-name string "#{app_name}" | debconf-set-selections
       echo newrelic-php5 newrelic-php5/license-key string "#{node["newrelic_key"]}" | debconf-set-selections
       apt-get -y install newrelic-php5
       cp /etc/newrelic/newrelic.cfg.template /etc/newrelic/newrelic.cfg

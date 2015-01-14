@@ -70,7 +70,6 @@ Configure a Jenkins server for Rails testing and deployment
 Attributes
 
 * "rubies": Rubies on RVM to run our applications
-* "rails_env": Normal is "test", so Jenkins will test against Database
 * "db": PostgreSQL Database configuration
 * "git_config":
   * "name": Git identification for server
@@ -80,7 +79,6 @@ Attributes
 ```json
   "default_attributes": {
     "rubies": ["ruby-2.1.2", "ruby-2.1.5"],
-    "rails_env": "test",
     "db": {
       "name": "test_ddbb",
       "user": "user_db",
@@ -200,3 +198,8 @@ Attributes
 ### v0.1.7
 
 * Including node["packages"] for Jenkins server, to install Ubuntu packages
+
+### v0.1.8
+
+* Replacing node["rails_env"] to node["environment"], making use of chef environments
+
