@@ -11,4 +11,3 @@ bin/*
 .kitchen.local.yml
 
 .idea
-release

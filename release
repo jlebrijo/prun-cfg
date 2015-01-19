@@ -1,0 +1,3 @@
+#!/bin/bash
+
+knife cookbook site share -VV "prun-cfg" "Other" -o ..
