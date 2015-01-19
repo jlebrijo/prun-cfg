@@ -30,6 +30,7 @@ node['rubies'].each do |ruby|
 end
 
 ## Configuration
+directory "/var/lib/jenkins/jobs"
 directory "/var/lib/jenkins/jobs/shared"
 cookbook_file "application.yml" do
   path "/var/lib/jenkins/jobs/shared/application.yml"
@@ -56,6 +57,9 @@ bash "create #{node["db"]["name"]} database" do
   EOH
   not_if "sudo -u postgres psql -c \"\\l\" | grep #{node["db"]["name"]}"
 end
+
+# Jenkins /var/lib/jenkins owner
+bash "chown -R jenkins:jenkins /var/lib/jenkins"
 
 ## Nginx
 template "/etc/nginx/conf.d/jenkins.conf" do
