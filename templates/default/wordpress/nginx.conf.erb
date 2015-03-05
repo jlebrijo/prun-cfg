@@ -6,6 +6,7 @@ server {
     index index.php index.html index.htm;
 
     server_name <%= node[:blog_dns_name]%>;
+    client_max_body_size 10M;
 
     location / {
         try_files $uri $uri/ /index.php?$args;
