@@ -49,6 +49,20 @@ Files you need at 'site-cookboks/prun-cfg/files/default':
 * 'id_rsa' and 'id_rsa.pub': identity ssh keys for the server.
 * '<app>.<domain>.crt' and '<app>.<domain>.key' files for SSL applications. 
 
+### recipe[prun-cfg::prun_base]: Monitoring
+
+Configures all needed in a PRUN server (Postgres, Ruby and Nginx).
+
+Attributes
+
+* "ruby_version": Ruby version
+
+```json
+  "default_attributes": {
+    "ruby_version": "2.2.0"
+  }
+```
+
 ### recipe[prun-cfg::newrelic]: Monitoring
 
 Mounts NewRelic plugins to monitor Nginx, System and Database.
@@ -203,3 +217,6 @@ Attributes
 
 * Replacing node["rails_env"] to node["environment"], making use of chef environments
 
+### v0.1.15
+
+* Added [prun-cfg::prun_base] recipe
