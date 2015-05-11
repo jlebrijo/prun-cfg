@@ -28,8 +28,6 @@ bash "Installing Ruby #{node['ruby_version']}" do
     apt-get install -y libreadline6-dev libyaml-dev sqlite3 autoconf libgdbm-dev
     apt-get install -y libncurses5-dev automake libtool bison pkg-config libffi-dev
 
-    rm /usr/bin/ruby
-
     git clone https://github.com/sstephenson/ruby-build.git /root/ruby-build
     /root/ruby-build/install.sh
 
