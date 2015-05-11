@@ -44,5 +44,5 @@ bash "Installing Ruby #{node['ruby_version']}" do
     thin install
     /usr/sbin/update-rc.d -f thin defaults
   EOH
-  not_if "which thin"
+  not_if "ls /usr/local/ruby/#{node['ruby_version']}/bin | grep thin"
 end
