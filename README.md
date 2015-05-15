@@ -220,3 +220,11 @@ Attributes
 ### v0.1.15
 
 * Added [prun-cfg::prun_base] recipe
+
+### v0.2.0
+
+* Added recipes: [prun-cfg::mysql], [prun-cfg::postgresql]
+* Postgresql is detached from prun_base and rails_server recipes
+* You will need to include a database recipe anywhere
+
+

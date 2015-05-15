@@ -2,19 +2,6 @@ execute "apt-get update"
 # Supervisor (not needed really: come from container reqs)
 package 'supervisor'
 
-# POSTGRESQL prepared for localhost connections
-bash "Installing PostgreSQL" do
-  code <<-EOH
-    export LANGUAGE=en_US.UTF-8
-    apt-get -y install postgresql libpq-dev
-
-    sed -i "s/#listen_addresses = 'localhost'/listen_addresses = 'localhost'/" /etc/postgresql/9.3/main/postgresql.conf
-    sed -i "s/local   all             all                                     peer/local   all             all                                     md5/" /etc/postgresql/9.3/main/pg_hba.conf
-    sed -i "s/ssl = true/ssl = false/" /etc/postgresql/9.3/main/postgresql.conf
-  EOH
-  not_if "which psql"
-end
-
 # Nginx
 package 'nginx'
 link "/etc/nginx/sites-enabled/default" do

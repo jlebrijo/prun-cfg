@@ -5,7 +5,7 @@ Application:
   wake_interval: 60
   #newrelic_api_timeout: 10
   #proxy: http://localhost:8080
-
+<% if node.recipes.to_s.include?('postgresql') %>
   postgresql:
   <% node["apps"].each do |app| %>
     - host: localhost
@@ -14,6 +14,7 @@ Application:
       user: <%=node["db"]["user"]%>
       password: <%=node["db"]["password"]%>
   <%end if node["apps"]%>
+<%end%>
   nginx:
   <% node["apps"].each do |app| %>
     - name: <%=app%>.<%=node["domain_name"]%>

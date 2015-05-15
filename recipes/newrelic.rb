@@ -32,11 +32,16 @@ bash "install MeetMe/newrelic-plugin-agent" do
   chmod +x /etc/init.d/newrelic-plugin-agent
   update-rc.d newrelic-plugin-agent defaults
 
-  pip install newrelic-plugin-agent[postgresql]
-  sudo -u postgres psql -c "alter user #{node["db"]["user"]} with superuser"
   EOH
   not_if "which newrelic-plugin-agent"
 end
+
+bash "support for Postgresql" do
+  code <<-EOH
+      pip install newrelic-plugin-agent[postgresql]
+      sudo -u postgres psql -c "alter user #{node["db"]["user"]} with superuser"
+  EOH
+end if node.recipes.to_s.include?('postgresql')
 
 template "/etc/newrelic/newrelic-plugin-agent.cfg" do
   source "newrelic/newrelic-plugin-agent.cfg.erb"
