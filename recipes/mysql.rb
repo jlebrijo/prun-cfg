@@ -13,6 +13,6 @@ node["apps"].each do |app|
       mysql --user='root' --password='#{node["db"]["root_password"]}' --execute='create database #{app};'
       mysql --user='root' --password='#{node["db"]["root_password"]}' --execute="grant all on #{app}.* to #{node["db"]["user"]}@'%' identified by '#{node["db"]["password"]}';"
     EOH
-    not_if "mysql --user='root' --password='#{node["db"]["root_password"]}' --execute='show databases;' | grep pppp#{app}"
+    not_if "mysql --user='root' --password='#{node["db"]["root_password"]}' --execute='show databases;' | grep #{app}"
   end
 end
