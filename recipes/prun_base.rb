@@ -20,8 +20,9 @@ bash "Installing Ruby #{node['ruby_version']}" do
 
     export RUBY_VERSION=#{node['ruby_version']}
     ruby-build --verbose $RUBY_VERSION /usr/local/ruby/$RUBY_VERSION
-    export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/$RUBY_VERSION/bin
-    echo PATH=$PATH > /etc/environment
+
+    rm /usr/bin/ruby
+    ln -s /usr/local/ruby/$RUBY_VERSION/bin/ruby /usr/bin/ruby
 
     # Install prerequisites
     echo gem: --no-ri --no-rdoc > /root/.gemrc
