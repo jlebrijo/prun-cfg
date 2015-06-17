@@ -3,6 +3,10 @@ upstream <%= @app%> {
 }
 
 
+<%if node['ngx_leaky_bucket_vhosts'] && (leaky_conf = node['ngx_leaky_bucket_vhosts']["#{@app}"])%>
+  limit_req_zone $binary_remote_addr zone=<%= @app%>:<%= leaky_conf['mem']%> rate=<%= leaky_conf['rate']%>;
+<%end%>
+
 server {
   server_name <%= @app%>.<%= @domain%>;
   root /var/www/<%= @app%>/current/public;
@@ -24,6 +28,9 @@ server {
     <% if node["ssl_apps"] && node["ssl_apps"].include?(@app) %>
       proxy_set_header X-Forwarded-Proto https;
     <% end%>
+    <% if leaky_conf %>
+      limit_req zone=<%= @app%> <%= "burst=#{leaky_conf['burst']}" if leaky_conf['burst']%> <%= "nodelay" if leaky_conf['nodelay']%>;
+    <%end%>
   }
   location / {
     try_files  $uri  @<%= @app%> ;

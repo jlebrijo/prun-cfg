@@ -6,7 +6,7 @@ Helps to configure PRUN servers (PostgreSQL / Ruby on Rails/ Ubuntu / Nginx).
 
 ### recipe[prun-cfg]: Rails stack
 
-Default recipe which configures PRUN stack: Nginx / Postgresql / Rails structure / SSH access keys. 
+Default recipe which configures PRUN stack: Nginx / Postgresql / Rails structure / SSH access keys.
 
 Attributes:
 
@@ -21,6 +21,13 @@ Attributes:
 * "git_config":
   * "name": Git identification for server
   * "email": Git email identification for server
+* "ngx_leaky_bucket_vhosts":
+  * Security limitation to avoid DoS attacks, based on
+  [Leaky Bucket](https://en.wikipedia.org/wiki/Leaky_bucket) and
+  [Nginx module](http://nginx.org/en/docs/http/ngx_http_limit_req_module.html)
+  * if the requests rate exceeds the "rate" configured for a zone ("app" named, like the "apps" 
+    attribute above), their processing is delayed until their number exceeds the maximum "burst"
+    size in which case the request is terminated with an error 503 (Service Temporarily Unavailable).
 
 ```json
   "default_attributes": {
@@ -38,6 +45,14 @@ Attributes:
     "git_config": {
       "name": "Jenkins",
       "email": "jenkins@comapny.org"
+    },
+    "ngx_leaky_bucket_vhosts": {
+      "app": {
+        "mem": '3m',
+        "rate": '1r/s',
+        "burst": '1',
+        "nodelay": "true"
+      }
     }
   }
 ```
@@ -47,7 +62,7 @@ Files you need at 'site-cookboks/prun-cfg/files/default':
 * 'application.yml': Common parameters based on Figaro gem file.
 * 'authorized_keys': list of public keys with access to server.
 * 'id_rsa' and 'id_rsa.pub': identity ssh keys for the server.
-* '<app>.<domain>.crt' and '<app>.<domain>.key' files for SSL applications. 
+* '<app>.<domain>.crt' and '<app>.<domain>.key' files for SSL applications.
 
 ### recipe[prun-cfg::prun_base]: Monitoring
 
@@ -163,14 +178,14 @@ Attributes
 
 * First publication
 * Adding SSL configuration for app with node["ssl_apps"] parameter. Certificates should be added to 'site-coockbooks/prun-cfg/files/default' as '<app>.<domain>.crt' and'<app>.<domain>.key'
- 
+
 ### v0.0.2
 
 * Adding node["domain_name"] parameter because node name could be from other domain.
 
 ### v0.0.4
 
-* Configure one database per application defined in node["apps"] 
+* Configure one database per application defined in node["apps"]
 * Create a /etc/init.d/<app> service file per app to start|stop|restart thin
 * Adding node["pg_extensions"] to integrate extensions needed for the system
 
@@ -227,4 +242,6 @@ Attributes
 * Postgresql is detached from prun_base and rails_server recipes
 * You will need to include a database recipe anywhere
 
+### v0.2.2
 
+* Added Nginx Leaky bucket support
