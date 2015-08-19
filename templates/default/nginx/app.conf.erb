@@ -30,6 +30,7 @@ server {
     <% end%>
     <% if leaky_conf %>
       limit_req zone=<%= @app%> <%= "burst=#{leaky_conf['burst']}" if leaky_conf['burst']%> <%= "nodelay" if leaky_conf['nodelay']%>;
+      limit_req_status 429;
     <%end%>
   }
   location / {
