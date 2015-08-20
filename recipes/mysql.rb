@@ -16,3 +16,10 @@ node["apps"].each do |app|
     not_if "mysql --user='root' --password='#{node["db"]["root_password"]}' --execute='show databases;' | grep #{app}"
   end
 end
+
+bash "install mycli" do
+  code <<-EOH
+    pip install mycli
+  EOH
+  not_if "which mycli"
+end

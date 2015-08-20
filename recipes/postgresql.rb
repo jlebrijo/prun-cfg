@@ -45,3 +45,10 @@ end
 service 'postgresql' do
   action :restart
 end
+
+bash "install pgcli" do
+  code <<-EOH
+    pip install pgcli
+  EOH
+  not_if "which pgcli"
+end
