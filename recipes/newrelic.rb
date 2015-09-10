@@ -28,7 +28,7 @@ bash "install MeetMe/newrelic-plugin-agent" do
   code <<-EOH
   pip install newrelic-plugin-agent
 
-  mv /opt/newrelic-plugin-agent/newrelic-plugin-agent.deb /etc/init.d/newrelic-plugin-agent
+  mv /usr/local/lib/python2.7/dist-packages/opt/newrelic-plugin-agent/newrelic-plugin-agent.deb /etc/init.d/newrelic-plugin-agent
   chmod +x /etc/init.d/newrelic-plugin-agent
   update-rc.d newrelic-plugin-agent defaults
 
@@ -79,4 +79,4 @@ end
     source "supervisord.conf.erb"
     variables app: app
   end
-end
+end if File.exist? '/etc/init.d/supervisor'
