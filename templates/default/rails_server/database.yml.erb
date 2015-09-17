@@ -1,5 +1,5 @@
 <%= node["environment"]%>:
-  adapter: <%= (node.recipes.to_s.include? 'postgresql')? 'postgrtesql': 'mysql2' %>
+  adapter: <%= (node.recipes.to_s.include? 'postgresql')? 'postgresql': 'mysql2' %>
   username: <%= node["db"]["user"] || 'root'%>
   password: <%= node["db"]["password"]%>
   database: <%= @db_name %>
