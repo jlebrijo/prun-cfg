@@ -15,6 +15,11 @@ node["apps"].each_with_index do |app, i|
     path "/var/www/#{app}/shared/config/application.yml"
   end
 
+  template "/etc/logrotate.d/#{app}" do
+    source "rails_server/logrotate_app.erb"
+    variables app: app
+  end
+
   template "/var/www/#{app}/shared/config/newrelic.yml" do
     source "rails_server/newrelic.yml.erb"
     variables app: app
