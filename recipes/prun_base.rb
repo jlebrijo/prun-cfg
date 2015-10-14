@@ -22,7 +22,8 @@ bash "Installing Ruby #{node['ruby_version']}" do
     ruby-build --verbose $RUBY_VERSION /usr/local/ruby/$RUBY_VERSION
 
     rm /usr/bin/ruby
-    ln -s /usr/local/ruby/$RUBY_VERSION/bin/ruby /usr/bin/ruby
+    #ln -s /usr/local/ruby/$RUBY_VERSION/bin/ruby /usr/bin/ruby
+    echo 'export PATH=$PATH:/usr/local/ruby/#{node['ruby_version']}/bin' >> ~/.profile
 
     # Install prerequisites
     echo gem: --no-ri --no-rdoc > /root/.gemrc
