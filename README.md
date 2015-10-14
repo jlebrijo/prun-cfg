@@ -17,6 +17,7 @@ Attributes:
 * "db": hash with database values
   * "user": db use
   * "password": db password
+  * "host": host name
 * "pg_extensions": Postgresql extensions to be configured
 * "git_config":
   * "name": Git identification for server
@@ -37,7 +38,8 @@ Attributes:
     "common_repo": "git@bitbucket.org:lebrijo/common.git",
     "db": {
       "user": "db_user",
-      "password": "Rxxxxxx9"
+      "password": "Rxxxxxx9",
+      "password": "db.lebrijo.com"
     },
     "pg_extensions": ["unaccent", "hstore"],
     "packages": ["imagemagick", "libmagickwand-dev", "libcurl4-openssl-dev"]

@@ -3,4 +3,5 @@
   username: <%= node["db"]["user"] || 'root'%>
   password: <%= node["db"]["password"]%>
   database: <%= @db_name %>
+  host: <%= (node["db"]["host"])? node["db"]["host"] : 'localhost'%>
   template: template0
