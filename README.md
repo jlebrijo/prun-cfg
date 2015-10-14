@@ -39,7 +39,7 @@ Attributes:
     "db": {
       "user": "db_user",
       "password": "Rxxxxxx9",
-      "password": "db.lebrijo.com"
+      "host": "db.lebrijo.com"
     },
     "pg_extensions": ["unaccent", "hstore"],
     "packages": ["imagemagick", "libmagickwand-dev", "libcurl4-openssl-dev"]
