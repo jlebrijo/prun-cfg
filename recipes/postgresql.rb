@@ -1,3 +1,4 @@
+package 'postgresql'
 # POSTGRESQL prepared for localhost connections
 bash "Installing PostgreSQL" do
   code <<-EOH
