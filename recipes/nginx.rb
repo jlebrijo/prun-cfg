@@ -25,6 +25,8 @@ node["apps"].each_with_index do |app, i|
   end
 end
 
+cookbook_file "/etc/nginx/ssl/dh2048.pem"
+
 service "nginx" do
   action :restart
 end

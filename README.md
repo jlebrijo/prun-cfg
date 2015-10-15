@@ -65,6 +65,7 @@ Files you need at 'site-cookboks/prun-cfg/files/default':
 * 'authorized_keys': list of public keys with access to server.
 * 'id_rsa' and 'id_rsa.pub': identity ssh keys for the server.
 * '<app>.<domain>.crt' and '<app>.<domain>.key' files for SSL applications.
+* 'dh2048.pem: Diffie-Hellman file for secure DHE (generate: `openssl dhparam -out dh2048.pem 2048`)
 
 ### recipe[prun-cfg::prun_base]: Monitoring
 
@@ -247,3 +248,7 @@ Attributes
 ### v0.2.2
 
 * Added Nginx Leaky bucket support
+
+### v0.2.11
+
+* Included Diffie-Hellman file for secure DHE. `dh2048.pem` file must be added.
