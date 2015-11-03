@@ -26,7 +26,9 @@ node["apps"].each_with_index do |app, i|
 end
 
 cookbook_file "/etc/nginx/ssl/dh2048.pem"
-
+cookbook_file '/etc/nginx/conf.d/gzip.conf' do
+  source 'nginx/gzip.conf'
+end
 service "nginx" do
   action :restart
 end
