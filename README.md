@@ -61,7 +61,7 @@ Attributes:
 
 Files you need at 'site-cookboks/prun-cfg/files/default':
 
-* 'application.yml': Common parameters based on Figaro gem file.
+* 'application.yml' (optional): Common parameters based on Figaro gem file.
 * 'authorized_keys': list of public keys with access to server.
 * 'id_rsa' and 'id_rsa.pub': identity ssh keys for the server.
 * '<app>.<domain>.crt' and '<app>.<domain>.key' files for SSL applications.

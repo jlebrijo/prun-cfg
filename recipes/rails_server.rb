@@ -13,6 +13,7 @@ node["apps"].each_with_index do |app, i|
 
   cookbook_file "application.yml" do
     path "/var/www/#{app}/shared/config/application.yml"
+    ignore_failure true
   end
 
   template "/etc/logrotate.d/#{app}" do
