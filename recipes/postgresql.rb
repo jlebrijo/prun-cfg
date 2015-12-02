@@ -47,6 +47,7 @@ service 'postgresql' do
   action :restart
 end
 
+package 'python-pip'
 bash "install pgcli" do
   code <<-EOH
     pip install pgcli

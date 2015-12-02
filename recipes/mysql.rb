@@ -17,6 +17,7 @@ node["apps"].each do |app|
   end
 end
 
+package 'python-pip'
 bash "install mycli" do
   code <<-EOH
     pip install mycli
