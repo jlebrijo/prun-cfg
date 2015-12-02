@@ -28,7 +28,7 @@ bash "install MeetMe/newrelic-plugin-agent" do
   code <<-EOH
   pip install newrelic-plugin-agent
 
-  mv /usr/local/lib/python2.7/dist-packages/opt/newrelic-plugin-agent/newrelic-plugin-agent.deb /etc/init.d/newrelic-plugin-agent
+  cp /opt/newrelic_plugin_agent/newrelic_plugin_agent.deb /etc/init.d/newrelic-plugin-agent
   chmod +x /etc/init.d/newrelic-plugin-agent
   update-rc.d newrelic-plugin-agent defaults
 
