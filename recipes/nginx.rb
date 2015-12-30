@@ -13,9 +13,12 @@ end
 # Configuring Rails Apps as Virtual hosts
 node["apps"].each_with_index do |app, i|
 
-  template "/etc/nginx/conf.d/vhost_#{app}.conf" do
+  template "/etc/nginx/sites-available/vhost_#{app}.conf" do
     source "nginx/app.conf.erb"
     variables app: app, port: 3000 + i, domain: node["domain_name"]
+  end
+  link "/etc/nginx/sites-enabled/vhost_#{app}.conf" do
+    to "/etc/nginx/sites-available/vhost_#{app}.conf"
   end
 
   if node["ssl_apps"] && node["ssl_apps"].include?(app)
