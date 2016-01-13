@@ -49,11 +49,11 @@ server {
 <% if node["ssl_apps"] && node["ssl_apps"].include?(@app) %>
   server {
     server_name <%= @app%>.<%= @domain%>;
+    root /var/www/<%= @app%>/current/public;
     location / {
       rewrite ^ https://$server_name$request_uri? permanent;
     }
     location /assets {
-      stub_status on;
     }
   }
 <% end%>
