@@ -52,5 +52,8 @@ server {
     location / {
       rewrite ^ https://$server_name$request_uri? permanent;
     }
+    location /assets {
+      stub_status on;
+    }
   }
 <% end%>
