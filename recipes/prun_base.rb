@@ -23,8 +23,8 @@ bash "Installing Ruby #{node['ruby_version']}" do
 
     rm /usr/bin/ruby
     #ln -s /usr/local/ruby/$RUBY_VERSION/bin/ruby /usr/bin/ruby
-    echo 'PATH=$PATH:/usr/local/ruby/#{node['ruby_version']}/bin' >> /etc/environment
-    echo 'export PATH=$PATH:/usr/local/ruby/#{node['ruby_version']}/bin' >> ~/.profile
+    echo "PATH=$PATH:/usr/local/ruby/#{node['ruby_version']}/bin" >> /etc/environment
+    echo "export PATH=$PATH:/usr/local/ruby/#{node['ruby_version']}/bin" >> ~/.profile
     source ~/.profile
 
     # Install prerequisites
