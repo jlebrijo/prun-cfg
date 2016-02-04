@@ -11,21 +11,21 @@ end
 # Install ruby
 bash "Installing Ruby #{node['ruby_version']}" do
   code <<-EOH
-    apt-get install -y git build-essential libsqlite3-dev libssl-dev gawk
-    apt-get install -y libreadline6-dev libyaml-dev sqlite3 autoconf libgdbm-dev
-    apt-get install -y libncurses5-dev automake libtool bison pkg-config libffi-dev
+    sudo apt-get install -y git build-essential libsqlite3-dev libssl-dev gawk
+    sudo apt-get install -y libreadline6-dev libyaml-dev sqlite3 autoconf libgdbm-dev
+    sudo apt-get install -y libncurses5-dev automake libtool bison pkg-config libffi-dev
 
-    git clone https://github.com/sstephenson/ruby-build.git /root/ruby-build
-    /root/ruby-build/install.sh
+    git clone https://github.com/sstephenson/ruby-build.git ~/ruby-build
+    ~/ruby-build/install.sh
 
     export RUBY_VERSION=#{node['ruby_version']}
     ruby-build --verbose $RUBY_VERSION /usr/local/ruby/$RUBY_VERSION
 
     rm /usr/bin/ruby
     #ln -s /usr/local/ruby/$RUBY_VERSION/bin/ruby /usr/bin/ruby
-    echo "PATH=$PATH:/usr/local/ruby/#{node['ruby_version']}/bin" >> /etc/environment
-    echo "export PATH=$PATH:/usr/local/ruby/#{node['ruby_version']}/bin" >> ~/.profile
-    source ~/.profile
+    echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/#{node['ruby_version']}/bin" | sudo tee -a /etc/environment
+    echo "export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/#{node['ruby_version']}/bin" >> ~/.profile
+    source /etc/environment
 
     # Install prerequisites
     echo gem: --no-ri --no-rdoc > /root/.gemrc
