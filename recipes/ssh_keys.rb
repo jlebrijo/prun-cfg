@@ -1,11 +1,15 @@
 # Add Deployer keys
 cookbook_file "id_rsa" do
-  path "/root/.ssh/id_rsa"
+  path "/home/ubuntu/.ssh/id_rsa"
   mode 0600
+  user "#{node[:user] || 'root'}"
+  group "#{node[:group] || 'root'}"
 end
 cookbook_file "id_rsa.pub" do
-  path "/root/.ssh/id_rsa.pub"
+  path "/home/ubuntu/.ssh/id_rsa.pub"
   mode 0644
+  user "#{node[:user] || 'root'}"
+  group "#{node[:group] || 'root'}"
 end
 
 # Identify Git pushers for backups or releases
@@ -15,8 +19,10 @@ execute "git config --global push.default simple"
 
 # Add Authorized keys
 cookbook_file "authorized_keys" do
-  path "/root/.ssh/authorized_keys"
+  path "~/.ssh/authorized_keys"
   mode 0644
+  user "#{node[:user] || 'root'}"
+  group "#{node[:group] || 'root'}"
 end
 
 # Add known hosts

@@ -26,6 +26,10 @@ node["apps"].each_with_index do |app, i|
     variables app: app
   end if node["newrelic_key"]
 
+  execute "change-permission /var/www/#{app}" do
+    command "sudo chown -R #{node[:user] || 'root'}:#{node[:group] || 'root'} /var/www/#{app}"
+  end
+
   bash "Configuring thin for #{app}" do
     code <<-EOH
       source ~/.profile

@@ -14,6 +14,9 @@ Attributes:
 * "ssl_apps": Applications with ssl access (443 port)
 * "domain_name": Base domain name
 * "common_repo": Common repo for private common code
+* "system": System configuration
+  * "user": system user (root by default)
+  * "group": system group (root by default)
 * "db": hash with database values
   * "user": db use
   * "password": db password
@@ -252,3 +255,8 @@ Attributes
 ### v0.2.11
 
 * Included Diffie-Hellman file for secure DHE. `dh2048.pem` file must be added.
+
+### v0.2.24
+
+* Moving APP domain to app-environment.domain.com .
+* Adding {system: {user, group}}
