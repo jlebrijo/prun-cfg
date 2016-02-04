@@ -13,6 +13,7 @@ service 'newrelic-sysmond' do
   action :restart
 end
 
+package 'curl'
 bash "install Pip" do
   code <<-EOH
   curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7
