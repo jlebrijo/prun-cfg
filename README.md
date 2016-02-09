@@ -12,7 +12,6 @@ Attributes:
 
 * "apps": Rails applications
 * "ssl_apps": Applications with ssl access (443 port)
-* "domain_name": Base domain name
 * "common_repo": Common repo for private common code
 * "system": System configuration
   * "user": system user (root by default)
@@ -37,7 +36,6 @@ Attributes:
   "default_attributes": {
     "apps": ["www", "app", "labs"],
     "ssl_apps": ["app"],
-    "domain_name": "lebrijo.com",
     "common_repo": "git@bitbucket.org:lebrijo/common.git",
     "db": {
       "user": "db_user",
@@ -260,3 +258,8 @@ Attributes
 
 * Moving APP domain to app-environment.domain.com .
 * Adding {system: {user, group}}
+
+### v0.2.25
+
+* Moving APP domain to environment-app.domain.com .
+* Removing 'domain_name' config, as it is deducted from node name

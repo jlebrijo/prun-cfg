@@ -13,12 +13,9 @@ end
 # Configuring Rails Apps as Virtual hosts
 node["apps"].each_with_index do |app, i|
 
-  env_subdomain = (node["environment"] == "production")? '':"-#{node["environment"]}"
-  server_name = "#{app}#{env_subdomain}.vysk.com"
-
   template "/etc/nginx/sites-available/vhost_#{app}.conf" do
     source "nginx/app.conf.erb"
-    variables app: app, port: 3000 + i, server_name: server_name
+    variables app: app, port: 3000 + i
   end
   link "/etc/nginx/sites-enabled/vhost_#{app}.conf" do
     to "/etc/nginx/sites-available/vhost_#{app}.conf"
@@ -26,8 +23,8 @@ node["apps"].each_with_index do |app, i|
 
   if node["ssl_apps"] && node["ssl_apps"].include?(app)
     directory "/etc/nginx/ssl/"
-    cookbook_file "/etc/nginx/ssl/#{app}.#{node["domain_name"]}.crt"
-    cookbook_file "/etc/nginx/ssl/#{app}.#{node["domain_name"]}.key"
+    cookbook_file "/etc/nginx/ssl/#{node.domain_root_name}.crt"
+    cookbook_file "/etc/nginx/ssl/#{node.domain_root_name}.key"
   end
 end
 
