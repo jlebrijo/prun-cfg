@@ -1,4 +1,4 @@
 server {
-  server_name <%=node["domain_name"]%>;
-  rewrite ^/(.*) http://www.<%=node["domain_name"]%>/$1 permanent;
+  server_name <%=node.domain_root_name%>;
+  rewrite ^/(.*) http://www.<%=node.domain_root_name%>/$1 permanent;
 }
