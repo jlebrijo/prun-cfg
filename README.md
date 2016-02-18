@@ -64,7 +64,6 @@ Files you need at 'site-cookboks/prun-cfg/files/default':
 
 * 'application.yml' (optional): Common parameters based on Figaro gem file.
 * 'authorized_keys': list of public keys with access to server.
-* 'id_rsa' and 'id_rsa.pub': identity ssh keys for the server.
 * '<app>.<domain>.crt' and '<app>.<domain>.key' files for SSL applications.
 * 'dh2048.pem: Diffie-Hellman file for secure DHE (generate: `openssl dhparam -out dh2048.pem 2048`)
 
@@ -263,3 +262,7 @@ Attributes
 
 * Moving APP domain to environment-app.domain.com .
 * Removing 'domain_name' config, as it is deducted from node name
+
+### v0.2.26
+
+* Generating SSH keys on first deployment

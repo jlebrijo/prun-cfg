@@ -9,11 +9,11 @@ ENV=<%=node["environment"]%>
 
 case "$1" in
 start)
-  sudo su - <%=node.system_user%> -c "cd /var/www/$APP/current && RAILS_ENV=$ENV bundle exec thin start -C /etc/thin/$APP.yml"
+  sudo su - <%=node.system_user%> -c "source /etc/environment && cd /var/www/$APP/current && RAILS_ENV=$ENV bundle exec thin start -C /etc/thin/$APP.yml"
 ;;
 
 stop)
-  sudo su - <%=node.system_user%> -c "cd /var/www/$APP/current && RAILS_ENV=$ENV bundle exec thin stop -C /etc/thin/$APP.yml"
+  sudo su - <%=node.system_user%> -c "source /etc/environment && cd /var/www/$APP/current && RAILS_ENV=$ENV bundle exec thin stop -C /etc/thin/$APP.yml"
 ;;
 
 restart)

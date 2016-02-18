@@ -16,4 +16,22 @@ class Chef
       node[:system][:group] || 'root'
     end
   end
+  class Recipe
+    def manage_ssh_keys(home, user)
+      execute "Generate ssh keys for #{user}." do
+        user user
+        creates "#{home}/.ssh/id_rsa.pub"
+        command "ssh-keygen -t rsa -q -f #{home}/.ssh/id_rsa -P \"\""
+        not_if "ls #{home}/.ssh/id_rsa"
+      end
+      # Add Authorized keys
+      cookbook_file "authorized_keys" do
+        path "#{home}/.ssh/authorized_keys"
+        mode 0644
+        user user
+        group user
+      end
+
+    end
+  end
 end
