@@ -19,7 +19,7 @@ bash "create pg_user" do
   code <<-EOH
   sudo -u postgres psql -c "create role #{node["db"]["user"]} with createdb login password '#{node["db"]["password"]}';"
   EOH
-  not_if "sudo -u postgres psql -c \"\\du\" | grep #{node["db"]["user"]}"
+  not_if "sudo -u postgres PGPASSWORD=#{node["db"]["password"]} psql -U #{node["db"]["user"]} -c \"\\du\" | grep #{node["db"]["user"]}"
 end
 
 # Create databases
@@ -30,7 +30,7 @@ node["apps"].each do |app|
     sudo -u postgres psql -c "create database #{app};"
     sudo -u postgres psql -c "grant all privileges on database #{app} to #{node["db"]["user"]};"
     EOH
-    not_if "sudo -u postgres psql -c \"\\l\" | grep #{app}"
+    not_if "sudo -u postgres PGPASSWORD=#{node["db"]["password"]} psql -U #{node["db"]["user"]} -c \"\\l\" | grep #{app}"
   end
 
   node["pg_extensions"].each do |extension|
@@ -38,7 +38,7 @@ node["apps"].each do |app|
       code <<-EOH
         sudo -u postgres psql -d #{app} -c 'create extension #{extension};'
       EOH
-      not_if "sudo -u postgres psql -d #{app} -c \"\\dx\" | grep #{extension}"
+      not_if "sudo -u postgres PGPASSWORD=#{node["db"]["password"]} psql -U #{node["db"]["user"]} -d #{app} -c \"\\dx\" | grep #{extension}"
     end
   end if node["pg_extensions"]
 end

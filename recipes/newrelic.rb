@@ -40,7 +40,7 @@ end
 bash "support for Postgresql" do
   code <<-EOH
       pip install newrelic-plugin-agent[postgresql]
-      sudo -u postgres psql -c "alter user #{node["db"]["user"]} with superuser"
+      sudo -u postgres PGPASSWORD=#{node["db"]["password"]} psql -U #{node["db"]["user"]} -c "alter user #{node["db"]["user"]} with superuser"
   EOH
 end if node.recipes.to_s.include?('postgresql')
 
