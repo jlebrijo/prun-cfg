@@ -21,6 +21,11 @@ bash "create pg_user" do
   EOH
   not_if "sudo -u postgres PGPASSWORD=#{node["db"]["password"]} psql -U #{node["db"]["user"]} -c \"\\du\" | grep #{node["db"]["user"]}"
 end
+bash "reset pg_user password" do
+  code <<-EOH
+  sudo -u postgres psql -c "alter user #{node["db"]["user"]} with password '#{node["db"]["password"]}';"
+  EOH
+end
 
 # Create databases
 package "postgresql-contrib"
@@ -47,7 +52,7 @@ service 'postgresql' do
   action :restart
 end
 
-package ['python-pip', 'libpq-dev', 'python-dev']
+%w(python-pip libpq-dev python-dev).each {|p| package p}
 bash "install pgcli" do
   code <<-EOH
     pip install pgcli
