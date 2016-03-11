@@ -23,7 +23,7 @@ bash "create pg_user" do
 end
 bash "reset pg_user password" do
   code <<-EOH
-  sudo -u postgres psql -c "alter user #{node["db"]["user"]} with password '#{node["db"]["password"]}';"
+  sudo -u postgres PGPASSWORD=#{node["db"]["password"]} psql -c "alter user #{node["db"]["user"]} with password '#{node["db"]["password"]}';"
   EOH
 end
 
