@@ -6,7 +6,7 @@ class Chef
     end
 
     def domain_root_name
-      node.name.split('.')[-2..-1].join('.')
+      node[:system][:domain_name]
     end
 
     def system_user
