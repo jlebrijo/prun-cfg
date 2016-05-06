@@ -11,29 +11,24 @@ end
 # Install ruby
 bash "Installing Ruby #{node['ruby_version']}" do
   code <<-EOH
-    sudo apt-get install -y git build-essential libsqlite3-dev libssl-dev gawk
+    # Pre-requirements
+    sudo apt-get install -y git build-essential libsqlite3-dev libssl-dev gawk g++
     sudo apt-get install -y libreadline6-dev libyaml-dev sqlite3 autoconf libgdbm-dev
     sudo apt-get install -y libncurses5-dev automake libtool bison pkg-config libffi-dev
 
-    git clone https://github.com/sstephenson/ruby-build.git ~/ruby-build
-    ~/ruby-build/install.sh
-
-    export RUBY_VERSION=#{node['ruby_version']}
-    ruby-build --verbose $RUBY_VERSION /usr/local/ruby/$RUBY_VERSION
-
-    rm /usr/bin/ruby
-    #ln -s /usr/local/ruby/$RUBY_VERSION/bin/ruby /usr/bin/ruby
-    echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/#{node['ruby_version']}/bin" | sudo tee -a /etc/environment
-    echo "export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/#{node['ruby_version']}/bin" >> ~/.profile
-    source /etc/environment
+    # Ruby
+    sudo apt-get -y install software-properties-common
+    sudo apt-add-repository -y ppa:brightbox/ruby-ng
+    sudo apt-get update
+    sudo apt-get -y install ruby#{node['ruby_version']} ruby#{node['ruby_version']}-dev
 
     # Install prerequisites
-    echo gem: --no-ri --no-rdoc > /root/.gemrc
-    gem install bundler
-    gem install rack -v 1.6.0
-    gem install thin -v 1.6.3
-    thin install
-    /usr/sbin/update-rc.d -f thin defaults
+    echo gem: --no-ri --no-rdoc | sudo tee -a /root/.gemrc
+    sudo gem install bundler
+    sudo gem install rack -v 1.6.0
+    sudo gem install thin -v 1.6.3
+    sudo thin install
+    sudo /usr/sbin/update-rc.d -f thin defaults
   EOH
-  not_if "ls /usr/local/ruby/#{node['ruby_version']}/bin | grep thin"
+  not_if "which ruby"
 end
